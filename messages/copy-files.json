@@ -1,0 +1,5 @@
+{
+	"commandDescription": "copy the files in the fromdir to todir",
+	"fromdirDescription": "source dir",
+	"todirDescription": "target dir"
+}
