@@ -16,7 +16,7 @@ export default class CopyFiles extends SfdxCommand {
   public static description = messages.getMessage('commandDescription');
 
   public static examples = [
-  `$ sfdx devutil:copy-files --fromdir config/customMetadata --todir force-app/main/default/customMetadata
+  `$ sfdx devutil:copy-files --sourcedir config/customMetadata --targetdir force-app/main/default/customMetadata
   Copying files from dir/source to dir/target
   Copying a.json...
   Copying b.txt...
@@ -25,25 +25,25 @@ export default class CopyFiles extends SfdxCommand {
   ];
 
   protected static flagsConfig = {
-    // flag with a value (-f, --fromdir=VALUE)
-    fromdir: flags.string({char: 'f', description: messages.getMessage('fromdirDescription')}),
-    // flag with a value (-t, --todir=VALUE)
-    todir: flags.string({char: 't', description: messages.getMessage('todirDescription')}),
+    // flag with a value (-f, --sourcedir=VALUE)
+    sourcedir: flags.string({char: 's', description: messages.getMessage('sourcedirDescription')}),
+    // flag with a value (-t, --targetdir=VALUE)
+    targetdir: flags.string({char: 't', description: messages.getMessage('targetdirDescription')}),
   };
 
   // Set this to true if your command requires a project workspace; 'requiresProject' is false by default
   protected static requiresProject = false;
 
   public async run(): Promise<AnyJson> {
-    const fromdir = this.flags.fromdir;
-    const todir = this.flags.todir;
+    const sourcedir = this.flags.sourcedir;
+    const targetdir = this.flags.targetdir;
 
-    const outputString = `Copying files from ${fromdir} to ${todir}`;
+    const outputString = `Copying files from ${sourcedir} to ${targetdir}`;
     this.ux.log(outputString);
-    const files = await fs.readdir(fromdir);
+    const files = await fs.readdir(sourcedir);
     for(let fileName of files) {
       this.ux.log(`Copying ${fileName}...`);
-      fsLib.copyFileSync(`${fromdir}/${fileName}`, `${todir}/${fileName}`);
+      fsLib.copyFileSync(`${sourcedir}/${fileName}`, `${targetdir}/${fileName}`);
     }
     this.ux.log(`Copied ${files.length} files`);
 
