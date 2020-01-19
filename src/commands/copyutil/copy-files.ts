@@ -1,8 +1,8 @@
 import { flags, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
-import { AnyJson } from '@salesforce/ts-types';
 import { fs } from '@salesforce/core/lib/util/fs';
-import * as fsLib from 'fs';
+import { AnyJson } from '@salesforce/ts-types';
+import { copyFileSync } from 'fs';
 
 // Initialize Messages with the current plugin directory
 Messages.importMessagesDirectory(__dirname);
@@ -16,7 +16,7 @@ export default class CopyFiles extends SfdxCommand {
   public static description = messages.getMessage('commandDescription');
 
   public static examples = [
-  `$ sfdx devutil:copy-files --sourcedir config/customMetadata --targetdir force-app/main/default/customMetadata
+  `$ sfdx copyutil:copy-files --sourcedir config/customMetadata --targetdir force-app/main/default/customMetadata
   Copying files from dir/source to dir/target
   Copying a.json...
   Copying b.txt...
@@ -28,7 +28,7 @@ export default class CopyFiles extends SfdxCommand {
     // flag with a value (-f, --sourcedir=VALUE)
     sourcedir: flags.string({char: 's', description: messages.getMessage('sourcedirDescription')}),
     // flag with a value (-t, --targetdir=VALUE)
-    targetdir: flags.string({char: 't', description: messages.getMessage('targetdirDescription')}),
+    targetdir: flags.string({char: 't', description: messages.getMessage('targetdirDescription')})
   };
 
   // Set this to true if your command requires a project workspace; 'requiresProject' is false by default
@@ -41,9 +41,9 @@ export default class CopyFiles extends SfdxCommand {
     const outputString = `Copying files from ${sourcedir} to ${targetdir}`;
     this.ux.log(outputString);
     const files = await fs.readdir(sourcedir);
-    for(let fileName of files) {
+    for ( const fileName of files ) {
       this.ux.log(`Copying ${fileName}...`);
-      fsLib.copyFileSync(`${sourcedir}/${fileName}`, `${targetdir}/${fileName}`);
+      copyFileSync(`${sourcedir}/${fileName}`, `${targetdir}/${fileName}`);
     }
     this.ux.log(`Copied ${files.length} files`);
 

@@ -6,3 +6,7 @@
 /package-lock.json
 /tmp
 node_modules
+
+# Test related
+test/fixtures/target/a.txt
+test/fixtures/target/b.txt
