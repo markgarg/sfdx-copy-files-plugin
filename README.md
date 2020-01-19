@@ -1,5 +1,5 @@
-sfdx-copy-files-plugin
-======================
+SFDX: Plugin to copy files
+==========================
 
 Utility for copying files from one dir to another, useful for sfdx. 
 
