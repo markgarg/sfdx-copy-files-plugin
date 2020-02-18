@@ -1,7 +1,7 @@
 SFDX: Plugin to copy files
 ==========================
 
-Utility for copying files from one dir to another, useful for sfdx. 
+Utility for copying files from one dir to another, useful for sfdx. More [here](https://medium.com/@rohit.macherla/custom-sfdx-plugin-to-copy-files-a6440ca8491c)
 
 # Why
 If you've worked on integrating third party APIs with Salesforce, you'll know that there are different URLs for non-prod vs prod. In your dev environment, you may even point to mocks. If these URLs are stored in named credentials/custom metadata, you won't be able to deploy them without having a way of changing them based on the environment you are going to deploy to.
